@@ -25,7 +25,7 @@ SECRET_KEY = 'at!2dnna#_m*4lreay&5dawux4xk0+m7-4o4if8=hfx5%#yluo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',  # 注册 blog 应用
     'comments',
+    'gunicorn',
 ]
 
 MIDDLEWARE = [
@@ -120,4 +121,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # 指明了静态文件的收集目录，即项目根目录下面的static 文件夹
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = (os.path.join(BASE_DIR, 'static'))
