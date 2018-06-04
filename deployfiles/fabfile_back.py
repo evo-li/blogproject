@@ -15,6 +15,7 @@ env.hosts=['iterate.site']
 env.port = '22'
 
 
+
 def deploy():
     source_folder = '/home/evo/sites/iterate.site/blogproject'
 
@@ -23,6 +24,7 @@ def deploy():
         cd {} &&
         ../_env3.6/bin/pip install -r requirements.txt &&
         ../_env3.6/bin/python3 manage.py collectstatic --noinput &&
+        ../_env3.6/bin/python3 manage.py makemigrations &&
         ../_env3.6/bin/python3 manage.py migrate
         """.format(source_folder))
     run("""
