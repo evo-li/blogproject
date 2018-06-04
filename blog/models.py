@@ -28,7 +28,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete='SET NULL')
     tags = models.ManyToManyField(Tag, blank=True)
     author = models.ForeignKey(User, on_delete='SET NULL')
-    view_num=models.PostiveIntegerField(default=0)
+    view_num=models.PositiveIntegerField(default=0)
     def __str__(self):
         return self.title
     def get_absolute_url(self):
