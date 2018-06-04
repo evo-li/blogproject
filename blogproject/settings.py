@@ -25,7 +25,8 @@ SECRET_KEY = 'at!2dnna#_m*4lreay&5dawux4xk0+m7-4o4if8=hfx5%#yluo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+#ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS=['127.0.0.1','localhost','47.98.34.20','.iterate.site']
 
 # Application definition
 
