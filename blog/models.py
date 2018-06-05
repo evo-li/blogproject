@@ -33,8 +33,8 @@ class Post(models.Model):
         return self.title
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk': self.pk})
-    def increase_views(self):
-        self.views+=1
+    def increase_viewnum(self):
+        self.view_num+=1
         self.save(update_fields=['view_num'])# 告诉数据库只更新 view_num 的值
     class Meta:
         ordering = ['-created_time']

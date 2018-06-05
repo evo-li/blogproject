@@ -30,7 +30,7 @@ def category(request, pk):
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     # wordpress 好像不是按照页面的访问次数来统计访问人数的吧？确认下。
-    post.increase_views()
+    post.increase_viewnum()
     # 记得在顶部引入 markdown 模块
     post.body = markdown.markdown(post.body,
                                   extensions=[
