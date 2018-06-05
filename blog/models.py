@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.six import python_2_unicode_compatible
+from django.utils.html import strip_tags
+import markdown
 
 
 
@@ -29,6 +31,8 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     author = models.ForeignKey(User, on_delete='SET NULL')
     view_num=models.PositiveIntegerField(default=0)
+    class Meta:
+        ordering = ['-created_time']
     def __str__(self):
         return self.title
     def get_absolute_url(self):
@@ -36,7 +40,13 @@ class Post(models.Model):
     def increase_viewnum(self):
         self.view_num+=1
         self.save(update_fields=['view_num'])# 告诉数据库只更新 view_num 的值
-    class Meta:
-        ordering = ['-created_time']
+    def save(self, *args, **kwargs):
+        if not self.excerpt:
+            md = markdown.Markdown(extensions=[
+                'markdown.extensions.extra',
+                'markdown.extensions.codehilite',
+            ])
+            self.excerpt = strip_tags(md.convert(self.body))[:54]
+        super(Post, self).save(*args, **kwargs)
 
 
