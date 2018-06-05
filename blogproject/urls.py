@@ -14,11 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
-
+from django.urls import path, include
+from blog.feeds import AllPostsRssFeed
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', include('blog.urls')),
-    path(r'',include('comments.urls')),
+    path(r'', include('comments.urls')),
+    # 记得在顶部引入 AllPostsRssFeed
+    path(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
+    path(r'^search/', include('haystack.urls')),
 ]

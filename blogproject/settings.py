@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'at!2dnna#_m*4lreay&5dawux4xk0+m7-4o4if8=hfx5%#yluo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #ALLOWED_HOSTS = ['127.0.0.1']
 ALLOWED_HOSTS=['127.0.0.1','localhost','47.98.34.20','.iterate.site']
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',
     'blog',  # 注册 blog 应用
     'comments',
     'gunicorn',
@@ -103,23 +104,28 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
-
 # 把英文改为中文
 LANGUAGE_CODE = 'zh-hans'
-
 # 把国际时区改为中国时区
 TIME_ZONE = 'Asia/Shanghai'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
 STATIC_URL = '/static/'
-
 # 指明了静态文件的收集目录，即项目根目录下面的static 文件夹
 STATIC_ROOT = (os.path.join(BASE_DIR, 'static'))
+
+
+
+# HAYSTACK 搜索功能配置
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
